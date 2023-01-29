@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Telemetry</title>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js' integrity='sha512-YeeA/Qxn5hYdkukScTCNNOhTrv1C2RubAGButJ1rmgQwZf/HdRaCGl+JAVkqsqaNRaYNHdheiuKKuPf9mDcqKg==' crossorigin='anonymous' referrerpolicy='no-referrer'></script>
+  <script src='app-transport-channel.js'></script>
+  <link rel='stylesheet' href='main.css'>
+  <link rel='preconnect' href='https://fonts.googleapis.com'>
+  <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap' rel='stylesheet'>
+</head>
+<body>
+  <div class='wrapper'>
+    <div class='server'>
+      <div class='server-style_1'>
+        <div id='count'>0</div>
+        <div class='label'>Collected data</div>
+      </div>
+      <div class='server-style_2'></div>
+      <div class='server-style_3'>
+        <div class='led' style='left: 6px'></div>
+        <div class='led' style='left: 14px'></div>
+        <div class='led' style='left: 22px'></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const AppTransportChannel = MermaidAppTransportChannel()
+
+    let i = 0
+    const leds = document.querySelectorAll('.led')
+
+    AppTransportChannel.on('connect', () => {
+      const counter = document.querySelector('#count')
+
+      AppTransportChannel.on('readData', async ({ type, data }) => {
+        if (type === 'message') {
+          leds.forEach((led, i) => {
+            led.style.background = Math.random() > 0.5 ? '#B0B0B0' : '#2BD202'
+          })
+
+          i++
+
+          if (i > 100000) {
+            counter.innerHTML = '> 100k'
+          } else {
+            counter.innerHTML = (s => s > 999 ? (s => parseInt(s) === parseFloat(s) ? parseInt(s) : s)((s / 1000).toFixed(1)) + 'k' : s.toFixed(0))(i)
+          }
+        }
+
+        if (type === 'reload') {
+          window.location.reload()
+        }
+      })
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "connects",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "size": 1,
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "jsonfile": "^6.1.0",
+    "node-mermaid": "*",
+    "path": "^0.12.7"
+  },
+  "scripts": {
+    "dev": "node index.js official telemetry 6969 1 development"
+  }
+}
