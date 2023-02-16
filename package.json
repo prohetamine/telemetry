@@ -10,9 +10,11 @@
     "fs": "^0.0.1-security",
     "jsonfile": "^6.1.0",
     "node-mermaid": "*",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "terminal-kit": "^3.0.0"
   },
   "scripts": {
-    "dev": "node index.js official telemetry 6969 1 development"
+    "dev": "node index.js official telemetry 6969 1 development",
+    "testing": "node testing official telemetry"
   }
 }
