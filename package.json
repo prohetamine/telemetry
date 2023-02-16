@@ -15,6 +15,6 @@
   },
   "scripts": {
     "dev": "node index.js official telemetry 6969 1 development",
-    "testing": "node testing official telemetry"
+    "testing": "node testing.js official telemetry"
   }
 }
