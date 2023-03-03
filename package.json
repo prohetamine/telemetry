@@ -1,6 +1,6 @@
 {
-  "name": "connects",
-  "version": "1.0.0",
+  "name": "telemetry",
+  "version": "3.0.2",
   "description": "",
   "main": "index.js",
   "size": 1,

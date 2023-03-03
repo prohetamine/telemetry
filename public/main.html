@@ -28,34 +28,38 @@
     </div>
   </div>
   <script>
-    const AppTransportChannel = MermaidAppTransportChannel()
+    const init = () => {
+      const AppTransportChannel = MermaidAppTransportChannel()
 
-    let i = 0
-    const leds = document.querySelectorAll('.led')
+      let i = 0
+      const leds = document.querySelectorAll('.led')
 
-    AppTransportChannel.on('connect', () => {
-      const counter = document.querySelector('#count')
+      AppTransportChannel.on('connect', () => {
+        const counter = document.querySelector('#count')
 
-      AppTransportChannel.on('readData', async ({ type, data }) => {
-        if (type === 'message') {
-          leds.forEach((led, i) => {
-            led.style.background = Math.random() > 0.5 ? '#B0B0B0' : '#2BD202'
-          })
+        AppTransportChannel.on('readData', async ({ type, data }) => {
+          if (type === 'message') {
+            leds.forEach((led, i) => {
+              led.style.background = Math.random() > 0.5 ? '#B0B0B0' : '#2BD202'
+            })
 
-          i++
+            i++
 
-          if (i > 100000) {
-            counter.innerHTML = '> 100k'
-          } else {
-            counter.innerHTML = (s => s > 999 ? (s => parseInt(s) === parseFloat(s) ? parseInt(s) : s)((s / 1000).toFixed(1)) + 'k' : s.toFixed(0))(i)
+            if (i > 100000) {
+              counter.innerHTML = '> 100k'
+            } else {
+              counter.innerHTML = (s => s > 999 ? (s => parseInt(s) === parseFloat(s) ? parseInt(s) : s)((s / 1000).toFixed(1)) + 'k' : s.toFixed(0))(i)
+            }
           }
-        }
 
-        if (type === 'reload') {
-          window.location.reload()
-        }
-      })
-    })
+          if (type === 'reload') {
+            window.location.reload()
+          }
+        })
+      })  
+    }
+
+    window.addEventListener('load', init)
   </script>
 </body>
 </html>
